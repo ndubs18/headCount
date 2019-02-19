@@ -5,7 +5,9 @@
   "dependencies": {
     "react": "^16.8.2",
     "react-dom": "^16.8.2",
-    "react-scripts": "2.1.5"
+    "react-scripts": "2.1.5",
+    "request": "^2.88.0",
+    "yargs": "^13.2.1"
   },
   "scripts": {
     "start": "react-scripts start",
