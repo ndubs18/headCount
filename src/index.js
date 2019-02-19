@@ -13,24 +13,31 @@ ReactDOM.render(<App />, document.getElementById('root'));
 // Learn more about service workers: http://bit.ly/CRA-PWA
 serviceWorker.unregister();
 
-let state = {
-
-}
 
 //get the input element for the search model and encode it for url
 const estab = encodeURI('Sandovals Mexican Grill Portland')
 
 //initialize a search object with the query from input element
-let idSearch = new search(estab);
+let idSearch = new search(estab, (errorMessage, results) => {
 
-state.search = idSearch.getResult();
+    if(errorMessage) {
+        console.log(errorMessage)
+    }
+    if(results){
+        console.log(results)
 
-//run the getResult function for the idSearch object
+        let detailsSearch = new details(results.placeID);
+        detailsSearch.getDetails();
+        
+    }
+});
+
+idSearch.getResult();
 
 
-let detailsSearch = new details(state.search.callback)
 
-detailsSearch.getDetails();
+
+
 
 
 

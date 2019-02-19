@@ -14,7 +14,7 @@ export default class Details {
             json: true},
             (error, response, body) => {
                 if(body.status === 'OK') {
-                console.log(body);
+                console.log(body.result.name);
                 } else {
                     console.log('Something went wrong with your Details request')
                 }

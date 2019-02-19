@@ -18,10 +18,10 @@ export default class Search {
 
                 if(body.status === "OK") {
                     console.log(body.candidates[0].place_id)
-                    this.callback = body.candidates[0].place_id;
+                    this.callback(undefined, {placeID: body.candidates[0].place_id})
 
                 } else {
-                    console.log('There was a problem with your request')
+                    this.callback('There was a problem with your request')
                 }
         })
     }
