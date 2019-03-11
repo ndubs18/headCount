@@ -1,6 +1,5 @@
 const axios = require('axios');
 
-const key = 'AIzaSyADi7s9vN9O6DNzVRgW1TiM1S_hvWQTaJA'
 
 
 export default class Details {
