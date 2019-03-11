@@ -17,22 +17,28 @@ serviceWorker.unregister();
 //get the input element for the search model and encode it for url
 const estab = encodeURI('Sandovals Mexican Grill Portland')
 
-//initialize a search object with the query from input element
-let idSearch = new search(estab, (errorMessage, results) => {
+// initialize a search object with the query from input element
 
-    if(errorMessage) {
-        console.log(errorMessage)
-    }
-    if(results){
-        console.log(results)
+const state = {};
 
-        let detailsSearch = new details(results.placeID);
-        detailsSearch.getDetails();
-        
-    }
-});
+const controlSearch = async () => {
+    state.search = new search(estab);
+    await state.search.getResult();
+    console.log(state.search.result);
 
-idSearch.getResult();
+    state.details = new details(state.search.result);  
+    
+    await state.details.getDetails()
+}
+
+controlSearch();
+
+
+
+
+
+
+
 
 
 

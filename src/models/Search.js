@@ -1,29 +1,28 @@
-const request = require('request');
+const axios = require('axios');
 
 const key = 'AIzaSyADi7s9vN9O6DNzVRgW1TiM1S_hvWQTaJA'
 
 
 export default class Search {
-    constructor(query, callback) {
+    constructor(query) {
         this.query = query;
-        this.callback = callback
     }
 
-    getResult() {
+    async getResult() {
+        try {
+            const res = await axios(`https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/findplacefromtext/json?key=${key}&input=${this.query}&inputtype=textquery&locationBias=ipbias`);
+            if(res.statusText === "OK") {
+                //Set the axios request result equal to the 'result' variable on 'this' object.
+                this.result = res.data.candidates[0].place_id;
+            }
 
-        request({
-            url: `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/findplacefromtext/json?key=${key}&input=${this.query}&inputtype=textquery&locationBias=ipbias`,
-            json: true},
-            (error, response, body) => {
-
-                if(body.status === "OK") {
-                    console.log(body.candidates[0].place_id)
-                    this.callback(undefined, {placeID: body.candidates[0].place_id})
-
-                } else {
-                    this.callback('There was a problem with your request')
-                }
-        })
+            else{
+                console.log('Could not find that address.')
+            }
+        } catch(e) {
+            console.log(e);
+        }
+    
     }
 
 }
